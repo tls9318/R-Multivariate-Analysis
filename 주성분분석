@@ -1,0 +1,110 @@
+data("stackloss")
+stackloss
+# STACK : 굴뚝
+# OXIDATION : 산화작용
+# NITRIC ACID : 질산
+# 
+#1. find variance-covariance matrix for 4 variables
+# 4개 변수에 대한 분산-공분산 행렬 찾기
+
+var(stackloss)
+cov(stackloss)
+
+#2. get correlation matrix from covariance matrix
+# 공분산 행렬에 대한 상관분석 가져오기
+cor(stackloss)
+cor(cov(stackloss))
+
+#3. reduce variables to 3 (remove stack.loss)
+# stack.loss를 제거하여 변수를 3개로 만들기
+new_stackloss <- stackloss[,-4]
+new_stackloss
+
+#4. find variance-covariance matrix for 3 variables
+# 3개 변수에 대한 분산-공분산 행렬 찾기
+var(new_stackloss)
+cov(new_stackloss)
+
+#5. get correlation matrix from covariance matrix
+# 공분산 행렬에서 상관 행렬 가져오기(4개변수와 3개변수 둘다 구하기)
+cor(stackloss)
+cor(new_stackloss)
+
+#6. Perform PCA(princomp) by using covariance matrix
+# 공분산 행렬을 사용하여 PCA(프린콤프) 수행
+
+A <- princomp(cov(stackloss))
+
+A
+
+B <- princomp(cov(new_stackloss))
+
+B
+
+#7. Perfrom PCA(princomp) by using correlation matrix
+# 상관 행렬을 사용하여 PCA(프린콤프)에서 수행
+
+A_A <- princomp(cor(stackloss))
+
+A_A
+
+B_B <- princomp(cor(new_stackloss))
+
+B_B
+#8. compare the two results
+# 두 결과를 비교하기
+
+summary(A)
+
+summary(A_A)
+
+summary(B)
+
+summary(B_B)
+
+#9. Perform PCA(prcomp) by using covariance matrix
+# 공분산 행렬을 사용하여 PCA(prcomp) 수행
+
+A$center # 자료의 변수별 평균
+A$scale #스케일
+A$sdev # 주성분의 표준편차
+A$loading # 적재(가중치)
+A$scores # 자료의 주성분 점수
+A$n.obs # 관찰값의 수
+A$call #사용한 주성분 분석 함수 표시
+
+biplot(A)
+
+
+B$center # 자료의 변수별 평균
+B$scale #스케일
+B$sdev # 주성분의 표준편차
+B$loading # 적재(가중치)
+B$scores # 자료의 주성분 점수
+B$n.obs # 관찰값의 수
+B$call #사용한 주성분 분석 함수 표시
+
+biplot(B)
+
+#10.Perform PCA(prcomp) by using correlation matrix
+# 상관 행렬을 사용하여 PCA(prcomp) 수행
+
+A_A$center # 자료의 변수별 평균
+A_A$scale #스케일
+A_A$sdev # 주성분의 표준편차
+A_A$loading # 적재(가중치)
+A_A$scores # 자료의 주성분 점수
+A_A$n.obs # 관찰값의 수
+A_A$call #사용한 주성분 분석 함수 표시
+
+biplot(A_A)
+
+B_B$center # 자료의 변수별 평균
+B_B$scale #스케일
+B_B$sdev # 주성분의 표준편차
+B_B$loading # 적재(가중치)
+B_B$scores # 자료의 주성분 점수
+B_B$n.obs # 관찰값의 수
+B_B$call #사용한 주성분 분석 함수 표시
+
+biplot(B_B)
