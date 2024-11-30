@@ -1,0 +1,109 @@
+
+# 요인 분석 프로그램
+# 요인 분석을 위한 세 가지 기능이 고려
+
+library(psych)
+
+
+#fa(): 탐색적 요인 분석
+
+#fa() is efa by principal axis method 
+#factanal() : 최대 가능성 요인 분석
+#principal() : 주성분 분석 방법
+
+library(GPArotation)
+
+getwd()
+
+data <- read.csv("eda-fa.csv", head= TRUE)
+dim(data)
+
+# 상관행렬 찾기
+R <- cor(data)
+
+R
+
+# scree plot 출력
+scree(R, factors = FALSE)
+
+
+# 요인분석 : fa()
+# 상관행렬 사용
+
+?fa()
+
+efa <- fa(r= R, nfactors =2, fm="pa")
+str(efa)
+efa$loadings
+efa$communality
+efa$uniquenesses
+print(efa$loadings, cutoff=0.001)
+fa.plot(efa)
+
+# varimax rotation
+refa <- fa(r= R, nfactors =2, rotate ="varimax", fm="pa")
+str(refa)
+refa$weights
+
+refa$communality
+
+
+print(refa$loadings, cutoff =0.001)
+
+efa$uniquenesses
+summary(refa)
+
+fa.plot(refa)
+# 해석 간단하게 하기
+
+fa.diagram(efa)
+
+
+
+
+
+?principal()
+# 주성분 분석에 기반한 요인분석
+data.factor <- principal(data, rotate="none")
+# corr.factor <- principal(R, rotate="none") // 같은 결과
+str(data.factor)
+data.factor
+
+
+data.factor$values
+data.factor$rotation
+data.factor$communality
+data.factor$loading
+#data.factor$scores
+
+plot(data.factor)
+
+
+R.varimax <- principal(data, nfactors=2, rotate="varimax")
+
+R.varimax
+
+R.varimax$loadings
+
+
+
+# 최대우도 추정을 사용한 요인 분석
+
+
+Rfact <- factanal(data, factors=2, rotation ="none")
+
+str(Rfact)
+Rfact$loadings
+
+Rfact <- factanal(data, factors=2, rotation ="varimax")
+Rfact$loadings
+
+
+
+Rfact <- factanal(data, factors=2, rotation ="promax")
+Rfact$loadings
+Rfact$uniquenesses
+Rfact$factors
+Rfact$correlation
+Rfact$method
+
