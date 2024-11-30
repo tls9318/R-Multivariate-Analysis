@@ -1,0 +1,93 @@
+library(Matrix)
+
+#------------------1번문제-----------------------------------
+
+A = matrix(c(4, 1, 0, 1, 3, 0, 0, 0, 2), byrow = 3, nrow = 3)
+A
+
+eigen(A)
+
+P_A<- eigen(A)$vectors # 고유벡터
+P_A
+T_A<- diag(eigen(A)$values) #고유값 행렬 표시
+T_A
+P_A%*% T_A%*% t(P_A) # 고유값과 고유벡터를 이용한 3개 행렬의 곱으로 분해
+
+#고유값과 고유벡터를 이용한 3개 행렬의 합으로 분해
+a_A <- eigen(A)$vectors[, 1]
+
+b_A <- eigen(A)$vectors[, 2]
+
+c_A <- eigen(A)$vectors[, 3]
+
+answer_A <- round(4.618034 * a_A %*% t(a_A) + 2.381966 * b_A %*% t(b_A) + 2 * c_A %*% t(c_A))
+
+answer_A
+
+# A의 제곱근 = P %*% T의 제곱근 %*% P의 역행렬 구하기
+
+answer_A_A <- P_A%*% sqrt(T_A)%*% t(P_A)
+answer_A_A
+
+answer_A_B<- round(sqrt(4.618034) * a_A %*% t(a_A) + sqrt(2.381966) * b_A %*% t(b_A) + sqrt(2) * c_A %*% t(c_A))
+answer_A_B
+#------------------2번문제-----------------------------------
+
+B = matrix(c(4, 1, 2, 1, 9, -3, 2, -3, 25), byrow = 3, nrow = 3)
+B
+
+eigen(B)
+
+P_B <- eigen(B)$vectors # 고유벡터
+P_B
+T_B <- diag(eigen(B)$values) #고유값 행렬 표시
+T_B
+
+P_B %*% T_B %*% t(P_B) # 고유값과 고유벡터를 이용한 3개 행렬의 곱으로 분해
+
+#고유값과 고유벡터를 이용한 3개 행렬의 합으로 분해
+a_B <- eigen(B)$vectors[, 1]
+
+b_B <- eigen(B)$vectors[, 2]
+
+c_B <- eigen(B)$vectors[, 3]
+
+answer_B <- round(25.69234 * a_B %*% t(a_B) + 8.81508 * b_B %*% t(b_B) + 3.492582 * c_B %*% t(c_B))
+answer_B
+
+# A의 제곱근 = P %*% T의 제곱근 %*% P의 역행렬 구하기
+answer_B_A <- P_B%*% sqrt(T_B)%*% t(P_B)
+answer_B_A
+
+answer_B_B<- round(sqrt(25.69234) * a_B %*% t(a_B) + sqrt(8.81508) * b_B %*% t(b_B) + sqrt(3.492582) * c_B %*% t(c_B))
+answer_B_B
+#------------------3번문제-----------------------------------
+
+C = matrix(c(25, -2, 4, -2, 4, 1, 4, 1, 9), byrow = 3, nrow = 3)
+C
+
+eigen(C)
+
+P_C <- eigen(C)$vectors # 고유벡터
+P_C
+T_C <- diag(eigen(C)$values) #고유값 행렬 표시
+T_C
+
+P_C %*% T_C %*% t(P_C) # 고유값과 고유벡터를 이용한 3개 행렬의 곱으로 분해
+
+#고유값과 고유벡터를 이용한 3개 행렬의 합으로 분해
+a_C <- eigen(C)$vectors[, 1]
+
+b_C <- eigen(C)$vectors[, 2]
+
+c_C <- eigen(C)$vectors[, 3]
+
+answer_C <- round(26.078452 * a_C %*% t(a_C) + 8.495796 * b_C %*% t(b_C) + 3.425752 * c_C %*% t(c_C))
+answer_C
+
+# A의 제곱근 = P %*% T의 제곱근 %*% P의 역행렬 구하기
+answer_C_A <- P_B%*% sqrt(T_B)%*% t(P_B)
+answer_C_A
+
+answer_C_B<- round(sqrt(26.078452) * a_C %*% t(a_C) + sqrt(8.495796) * b_C %*% t(b_C) + sqrt(3.425752) * c_C %*% t(c_C))
+answer_C_Bㄱ
